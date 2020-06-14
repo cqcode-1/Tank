@@ -8,10 +8,14 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    Tank tank = new Tank(200, 200, Dir.DOWN);
+    Tank tank = new Tank(200, 200, Dir.DOWN, this);
     Bullet bullet = new Bullet(200, 200, Dir.DOWN);
+
+    Image offScreenImage = null;
+    private static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+
     public TankFrame(){
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
@@ -88,7 +92,10 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     BD = false;
                     break;
-                default:break;
+                case KeyEvent.VK_CONTROL:
+                    tank.fire();
+                    break;
+                    default:break;
 
             }
             setMainTankDir();
@@ -104,5 +111,20 @@ public class TankFrame extends Frame {
             if(BU) tank.setDir(Dir.UP);
             if(BD) tank.setDir(Dir.DOWN);
         }
+    }
+
+    @Override
+    public void update(Graphics g) {
+        if(offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+
     }
 }

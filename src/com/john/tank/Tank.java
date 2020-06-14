@@ -6,13 +6,20 @@ public class Tank {
     private int x,y;
     private final int SPEED = 10;
     private Dir dir = Dir.DOWN;
-
+    private TankFrame tf;
     private boolean moving = false;
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+    }
+
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+        this.tf = tf;
     }
 
     public Dir getDir() {
@@ -28,8 +35,12 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.BLUE);
+
         //位置和大小
         g.fillRect(x, y, 50,50);
+        g.setColor(color);
         move();
     }
 
@@ -49,5 +60,9 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+    }
+
+    public void fire(){
+        tf.bullet = new Bullet(x, y, dir);
     }
 }
