@@ -1,13 +1,21 @@
 package com.john.tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Tank {
+    //表示tank出来的位置坐标
     private int x,y;
     private final int SPEED = 10;
+
+    private final int TANK_WIDTH = ResourceManager.tankL.getWidth();
+    private final int TANK_HEIGHT = ResourceManager.tankL.getHeight();
+
     private Dir dir = Dir.DOWN;
     private TankFrame tf;
     private boolean moving = false;
+
+
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
@@ -35,12 +43,22 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.BLUE);
-
-        //位置和大小
-        g.fillRect(x, y, 50,50);
-        g.setColor(color);
+        BufferedImage image = ResourceManager.tankL;
+        switch (dir){
+            case LEFT:
+                image = ResourceManager.tankL;
+                break;
+            case RIGHT:
+                image = ResourceManager.tankR;
+                break;
+            case UP:
+                image = ResourceManager.tankU;
+                break;
+            case DOWN:
+                image = ResourceManager.tankD;
+                break;
+        }
+        g.drawImage(image, x, y, null);
         move();
     }
 
@@ -63,6 +81,8 @@ public class Tank {
     }
 
     public void fire(){
-        tf.bullet = new Bullet(x, y, dir);
+        int xp = this.x+ TANK_WIDTH/2 - Bullet.WIDTH/2;
+        int yp = this.y+ TANK_HEIGHT/2 - Bullet.HEIGHT/2;
+        tf.bullets.add(new Bullet(xp, yp, dir, tf));
     }
 }

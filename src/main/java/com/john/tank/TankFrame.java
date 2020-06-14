@@ -5,14 +5,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
 
     Tank tank = new Tank(200, 200, Dir.DOWN, this);
-    Bullet bullet = new Bullet(200, 200, Dir.DOWN);
-
+    List<Bullet> bullets = new ArrayList<>();
+    Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
     Image offScreenImage = null;
-    private static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame(){
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -32,12 +34,18 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint");
-
+        Color color = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("子弹数量："+ bullets.size(), 10, 60);
+        g.setColor(color);
         tank.paint(g);
-        bullet.paint(g);
-    }
+        //删除元素不要使用foreach迭代。
+        for(int i=0; i< bullets.size(); i++){
+            Bullet bullet = bullets.get(i);
+            bullet.paint(g);
 
+        }
+    }
 
     /**
      * 键盘事件接收
