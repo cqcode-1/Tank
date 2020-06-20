@@ -2,32 +2,31 @@ package com.john.tank;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Tank {
     //表示tank出来的位置坐标
     private int x,y;
-    private final int SPEED = 10;
+    private final int SPEED = 1;
 
     public static final int TANK_WIDTH = ResourceManager.tankL.getWidth();
     public static final int TANK_HEIGHT = ResourceManager.tankL.getHeight();
 
     private Dir dir = Dir.DOWN;
     private TankFrame tf;
-    private boolean moving = false;
+    private boolean moving = true;
     private boolean living = true;
+    private Group group = Group.BAD;
 
-    public Tank(int x, int y, Dir dir) {
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
-    }
+    private Random random = new Random();
 
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public Dir getDir() {
@@ -79,12 +78,14 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
+        if(random.nextInt(10) > 8) this.fire();
     }
 
     public void fire(){
         int xp = this.x+ TANK_WIDTH/2 - Bullet.WIDTH/2;
         int yp = this.y+ TANK_HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(xp, yp, dir, tf));
+        tf.bullets.add(new Bullet(xp, yp, dir, Group.BAD,  tf));
     }
 
     public void die(){
@@ -101,6 +102,15 @@ public class Tank {
 
     public int getY() {
         return y;
+    }
+
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void setY(int y) {

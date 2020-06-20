@@ -10,10 +10,10 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-    Tank tank = new Tank(200, 200, Dir.DOWN, this);
+    Tank tank = new Tank(200, 200, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
-    Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
+    Bullet bullet = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
     Image offScreenImage = null;
     public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 

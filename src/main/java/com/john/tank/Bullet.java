@@ -10,12 +10,14 @@ public class Bullet {
     public static int WIDTH = ResourceManager.bulletL.getWidth(), HEIGHT = ResourceManager.bulletL.getHeight();
     private boolean living = true;
     private TankFrame tf;
+    private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public boolean isLiving() {
@@ -71,11 +73,22 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
+        if(this.group == tank.getGroup()) return;
+
+        //TODO Rectangle 优化
         Rectangle recT1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.TANK_WIDTH, Tank.TANK_HEIGHT);
         if(recT1.intersects(rect2)){
             tank.die();
             this.die();
         }
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

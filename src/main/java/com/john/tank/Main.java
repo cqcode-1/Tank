@@ -6,7 +6,7 @@ public class Main {
 
         //初始化tank
         for (int i=0; i<5; i++){
-            tankFrame.add(new Tank(50+ i*80, 200, Dir.UP, tankFrame));
+            tankFrame.add(new Tank(50+ i*80, 200, Dir.UP, Group.BAD, tankFrame));
         }
 
         while (true){
