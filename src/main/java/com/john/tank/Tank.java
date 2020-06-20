@@ -8,20 +8,20 @@ public class Tank {
     private int x,y;
     private final int SPEED = 10;
 
-    private final int TANK_WIDTH = ResourceManager.tankL.getWidth();
-    private final int TANK_HEIGHT = ResourceManager.tankL.getHeight();
+    public static final int TANK_WIDTH = ResourceManager.tankL.getWidth();
+    public static final int TANK_HEIGHT = ResourceManager.tankL.getHeight();
 
     private Dir dir = Dir.DOWN;
     private TankFrame tf;
     private boolean moving = false;
-
-
+    private boolean living = true;
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
     }
+
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
@@ -43,6 +43,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if(!living) tf.tanks.remove(this);
         BufferedImage image = ResourceManager.tankL;
         switch (dir){
             case LEFT:
@@ -84,5 +85,25 @@ public class Tank {
         int xp = this.x+ TANK_WIDTH/2 - Bullet.WIDTH/2;
         int yp = this.y+ TANK_HEIGHT/2 - Bullet.HEIGHT/2;
         tf.bullets.add(new Bullet(xp, yp, dir, tf));
+    }
+
+    public void die(){
+        living = false;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

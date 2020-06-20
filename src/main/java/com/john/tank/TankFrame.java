@@ -12,6 +12,7 @@ public class TankFrame extends Frame {
 
     Tank tank = new Tank(200, 200, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<>();
+    List<Tank> tanks = new ArrayList<>();
     Bullet bullet = new Bullet(200, 200, Dir.DOWN, this);
     Image offScreenImage = null;
     public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
@@ -37,6 +38,7 @@ public class TankFrame extends Frame {
         Color color = g.getColor();
         g.setColor(Color.white);
         g.drawString("子弹数量："+ bullets.size(), 10, 60);
+        g.drawString("敌人数量："+ tanks.size(), 10, 80);
         g.setColor(color);
         tank.paint(g);
         //删除元素不要使用foreach迭代。
@@ -45,6 +47,26 @@ public class TankFrame extends Frame {
             bullet.paint(g);
 
         }
+
+        for (int i = 0; i <tanks.size() ; i++) {
+            tanks.get(i).paint(g);
+        }
+
+        for (int i = 0; i < bullets.size() ; i++) {
+            for (int j = 0; j < tanks.size() ; j++) {
+                bullets.get(i).collideWith(tanks.get(j));
+            }
+
+
+        }
+    }
+
+    /**
+     * 添加敌方坦克。
+     * @param tank Tank
+     */
+    public void add(Tank tank) {
+        tanks.add(tank);
     }
 
     /**
