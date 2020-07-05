@@ -1,5 +1,7 @@
 package com.john.tank;
 
+import com.john.tank.utils.Audio;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -16,6 +18,7 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+//        new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
 

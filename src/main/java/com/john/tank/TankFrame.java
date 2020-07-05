@@ -49,18 +49,19 @@ public class TankFrame extends Frame {
 
         }
 
+        //绘制坦克
         for (int i = 0; i <tanks.size() ; i++) {
             tanks.get(i).paint(g);
         }
 
-        //碰撞检测
+        //每次绘制，检测碰撞
         for (int i = 0; i < bullets.size() ; i++) {
             for (int j = 0; j < tanks.size() ; j++) {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
 
-        //
+        //绘制爆炸
         for (int i = 0; i < explodes.size() ; i++) {
             explodes.get(i).paint(g);
         }

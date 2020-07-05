@@ -19,7 +19,7 @@ public class Tank {
     private Group group = Group.BAD;
 
     private Random random = new Random();
-
+    public Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -27,6 +27,11 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = TANK_WIDTH;
+        rectangle.height = TANK_HEIGHT;
     }
 
     public Dir getDir() {
@@ -85,6 +90,9 @@ public class Tank {
         if(group == Group.BAD && random.nextInt(100) > 95 ) randomDir();
 
         boundsCheck();
+
+        rectangle.x = x;
+        rectangle.y = y;
     }
 
     private void boundsCheck() {

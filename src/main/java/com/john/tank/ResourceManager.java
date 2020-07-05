@@ -9,20 +9,21 @@ import java.util.Objects;
 
 public class ResourceManager {
 
-    public static BufferedImage tankL, tankR, tankU, tankD;
+    public static BufferedImage goodTankL, goodTankR, goodTankU, goodTankD;
+    public static BufferedImage badTankL, badTankR, badTankU, badTankD;
     public static BufferedImage bulletL, bulletR, bulletU, bulletD;
     public static BufferedImage[] explodes = new BufferedImage[16];
     static {
         try {
-//            tankU =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/BadTank1.png")));
-//
-//            tankR = ImageUtil.rotateImage(tankU, 90);
-//            tankD = ImageUtil.rotateImage(tankU, 180);
-//            tankL = ImageUtil.rotateImage(tankU, 270);
-            tankL =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/tankL.gif")));
-            tankR =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/tankR.gif")));
-            tankU =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/tankU.gif")));
-            tankD =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/tankD.gif")));
+            badTankU =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/BadTank1.png")));
+            badTankR = ImageUtil.rotateImage(badTankU, 90);
+            badTankD = ImageUtil.rotateImage(badTankU, 180);
+            badTankL = ImageUtil.rotateImage(badTankU, 270);
+
+            goodTankU =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/GoodTank1.png")));
+            goodTankR = ImageUtil.rotateImage(goodTankU, 90);
+            goodTankD = ImageUtil.rotateImage(goodTankU, 180);
+            goodTankL = ImageUtil.rotateImage(goodTankU, 270);
 
             bulletL =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/bulletL.gif")));
             bulletR =ImageIO.read(Objects.requireNonNull(ResourceManager.class.getClassLoader().getResourceAsStream("images/bulletR.gif")));
