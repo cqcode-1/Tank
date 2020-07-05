@@ -9,8 +9,8 @@ public class Tank {
     private int x,y;
     private final int SPEED = 2;
 
-    public static final int TANK_WIDTH = ResourceManager.tankL.getWidth();
-    public static final int TANK_HEIGHT = ResourceManager.tankL.getHeight();
+    public static final int TANK_WIDTH = ResourceManager.goodTankL.getWidth();
+    public static final int TANK_HEIGHT = ResourceManager.goodTankL.getHeight();
 
     private Dir dir = Dir.DOWN;
     private TankFrame tf;
@@ -43,19 +43,19 @@ public class Tank {
 
     public void paint(Graphics g) {
         if(!living) tf.tanks.remove(this);
-        BufferedImage image = ResourceManager.tankL;
+        BufferedImage image = ResourceManager.goodTankL;
         switch (dir){
             case LEFT:
-                image = ResourceManager.tankL;
+                image = group == Group.BAD ? ResourceManager.badTankL : ResourceManager.goodTankL;
                 break;
             case RIGHT:
-                image = ResourceManager.tankR;
+                image = group == Group.BAD ? ResourceManager.badTankR : ResourceManager.goodTankR;
                 break;
             case UP:
-                image = ResourceManager.tankU;
+                image = group == Group.BAD ? ResourceManager.badTankU : ResourceManager.goodTankU;
                 break;
             case DOWN:
-                image = ResourceManager.tankD;
+                image = group == Group.BAD ? ResourceManager.badTankD : ResourceManager.goodTankD;
                 break;
         }
         g.drawImage(image, x, y, null);
@@ -83,6 +83,15 @@ public class Tank {
         if(group == Group.BAD && random.nextInt(100) > 94) this.fire();
         //敌方坦克随机移动
         if(group == Group.BAD && random.nextInt(100) > 95 ) randomDir();
+
+        boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if(this.x < 2) x = 2;
+        if(this.y < 28) y = 28;
+        if(this.x > TankFrame.GAME_WIDTH - TANK_WIDTH -2) x = TankFrame.GAME_WIDTH - TANK_WIDTH-2;
+        if(this.y > TankFrame.GAME_HEIGHT - TANK_HEIGHT-2) y = TankFrame.GAME_HEIGHT - TANK_HEIGHT-2;
     }
 
     private void randomDir() {
