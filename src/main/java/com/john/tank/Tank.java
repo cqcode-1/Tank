@@ -7,7 +7,7 @@ import java.util.Random;
 public class Tank {
     //表示tank出来的位置坐标
     private int x,y;
-    private final int SPEED = 1;
+    private final int SPEED = 2;
 
     public static final int TANK_WIDTH = ResourceManager.tankL.getWidth();
     public static final int TANK_HEIGHT = ResourceManager.tankL.getHeight();
@@ -79,13 +79,20 @@ public class Tank {
                 break;
         }
 
-        if(random.nextInt(10) > 8) this.fire();
+        //敌方坦克随机开火
+        if(group == Group.BAD && random.nextInt(100) > 94) this.fire();
+        //敌方坦克随机移动
+        if(group == Group.BAD && random.nextInt(100) > 95 ) randomDir();
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire(){
         int xp = this.x+ TANK_WIDTH/2 - Bullet.WIDTH/2;
         int yp = this.y+ TANK_HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(xp, yp, dir, Group.BAD,  tf));
+        tf.bullets.add(new Bullet(xp, yp, dir, group,  tf));
     }
 
     public void die(){
